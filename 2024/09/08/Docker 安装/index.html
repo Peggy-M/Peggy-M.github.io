@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="底层支撑搭建所有环境都会在Linux操作系统下去搭建，如果对Linux操作不套熟悉以及Docker也不太熟悉的话，先去掌握一下Linux的基本操作搞定，还有Docker以及Docker-Compose的应用能力搞定。 我这里采用的Linux是云服务器的形式，华为云的CentOS-7.6版本。 需要搭建的底层支持有MySQL，Nacos，Redis，rabbitMQ，Elasticsearch，Ki">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2024/09/08/Docker%20%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="底层支撑搭建所有环境都会在Linux操作系统下去搭建，如果对Linux操作不套熟悉以及Docker也不太熟悉的话，先去掌握一下Linux的基本操作搞定，还有Docker以及Docker-Compose的应用能力搞定。 我这里采用的Linux是云服务器的形式，华为云的CentOS-7.6版本。 需要搭建的底层支持有MySQL，Nacos，Redis，rabbitMQ，Elasticsearch，Ki">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/ec67c830fed14a359f483cdaf20292ca.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/bb725485c765408eb66d06b641d528ce.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/e309e3a631e64c17be56f6f0d92bed9e.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/8fdae4144228438bb81ef4302b47597b.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/5403fd99d68d431da88ba2b7b81c6eb3.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/ea50c4f400014b09813e081de9e42f8c.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/ad80f80718d343a69f01d695e5cad6e1.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/2346c4dfa581488785dce4e74583787f.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/0a41e8f0654e464587d7f73f7721f5c0.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/f8fe5490dd1f482f991c485e0705a02e.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/925980873da84365a168aa04ebfbe258.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/de90acfa84ab4d7d849ae33c59cb8f18.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/e6338247330b49318a1a578d449c0909.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/9fbf09c57b5c486187dd82d57e3bc254.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/e5a090699aea4baf9be41ceaad4d9046.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/28b941077fb44761ba2b50abfbe05ffc.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/eeff44d243cb4ad2b6ca1af0163b0786.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/4b6acfffe1124c4fb5fe6195823a2406.png">
+<meta property="og:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/f5f1d4dfb5b34b33b41757db3e2516d4.png">
+<meta property="article:published_time" content="2024-09-08T13:13:02.424Z">
+<meta property="article:modified_time" content="2024-09-08T13:13:16.683Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/ec67c830fed14a359f483cdaf20292ca.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2024/09/08/Docker 安装/"/>
+
+
+
+
+
+  <title> | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/08/Docker%20%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-09-08T21:13:02+08:00">
+                2024-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="底层支撑搭建"><a href="#底层支撑搭建" class="headerlink" title="底层支撑搭建"></a>底层支撑搭建</h1><p>所有环境都会在Linux操作系统下去搭建，如果对Linux操作不套熟悉以及Docker也不太熟悉的话，先去掌握一下Linux的基本操作搞定，还有Docker以及Docker-Compose的应用能力搞定。</p>
+<p>我这里采用的Linux是云服务器的形式，华为云的CentOS-7.6版本。</p>
+<p>需要搭建的底层支持有MySQL，Nacos，Redis，rabbitMQ，Elasticsearch，Kibana，Jenkins</p>
+<p>Linux的版本尽量和我统一，你的选择就两个 <strong>7.6，7.8</strong> 这两个版本的Linux，一定是CentOS的。</p>
+<p>特别是用6.x和8.x的Centos的同学，一定更换一下版本！！！！</p>
+<h2 id="一、准备Docker-Docker-Compose"><a href="#一、准备Docker-Docker-Compose" class="headerlink" title="一、准备Docker&amp;Docker-Compose"></a>一、准备Docker&amp;Docker-Compose</h2><p>在确认Linux发行版本没有问题之后，再安装Docker以及Docker-Compose</p>
+<h3 id="1-1-Docker安装"><a href="#1-1-Docker安装" class="headerlink" title="1.1 Docker安装"></a>1.1 Docker安装</h3><ul>
+<li>下载Docker依赖的组件</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>设置下载Docker服务的镜像源，设置为阿里云</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装Docker服务</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install docker-ce</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装成功后，需要启动docker服务，并且设置docker是开机自启项</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动docker服务</span></span><br><span class="line">systemctl start docker</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置开机自动启动docker</span></span><br><span class="line">systemctl enable docker</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>测试安装结果</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>最终效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/ec67c830fed14a359f483cdaf20292ca.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<h3 id="1-2-Docker-Compose安装"><a href="#1-2-Docker-Compose安装" class="headerlink" title="1.2 Docker-Compose安装"></a>1.2 Docker-Compose安装</h3><ul>
+<li><p>下载Docker-Compose：<a target="_blank" rel="noopener" href="https://github.com/docker/compose/releases/tag/v2.10.0">https://github.com/docker/compose/releases/tag/v2.10.0</a></p>
+</li>
+<li><p>下载的是：<img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/bb725485c765408eb66d06b641d528ce.png" alt="image.png"></p>
+</li>
+<li><p>下载完毕后，将脚本直接拖拽到Linux操作系统中（我的图形化界面是 <strong>Moba-Xterm</strong> 的软件）<br>下载地址：<a target="_blank" rel="noopener" href="https://mobaxterm.mobatek.net/download.html">https://mobaxterm.mobatek.net/download.html</a></p>
+</li>
+<li><p>先赋予docker-compose文件一个可执行的权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x docker-compose-linux-x86_64</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将拥有可执行权限的docker-compose文件移动到系统默认的环境变量的PATH目录中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv docker-compose-linux-x86_64 /usr/bin/docker-compose</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试一下功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose version</span><br></pre></td></tr></table></figure></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>测试效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/e309e3a631e64c17be56f6f0d92bed9e.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<h2 id="二、准备MySQL"><a href="#二、准备MySQL" class="headerlink" title="二、准备MySQL"></a>二、准备MySQL</h2><p>MySQL我这里选择的5.7.24的版本，和我统一</p>
+<p>因为我这边是云服务器搭建，密码尽量复杂一点，不然容易被干</p>
+<p>准备在&#x2F;usr&#x2F;local&#x2F;docker目录下安装后续需要的全部软件</p>
+<p>在&#x2F;usr&#x2F;local&#x2F;docker下构建了mysql_docker的目录，在里面准备docker-compose.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.1&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">mysql:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mysql:5.7.24</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">3306</span><span class="string">:3306</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">MYSQL_ROOT_PASSWORD=ZhengJinWei123!</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data/:/var/lib/mysql/</span></span><br></pre></td></tr></table></figure>
+
+<p>docker安装的MySQL默认root用户是允许远程连接的</p>
+<p>如果你无法正常连接，需要看两种情况：</p>
+<ul>
+<li><p>虚拟机安装的Linux，记得将防火墙直接关闭</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>云服务的Linux，不需要关闭防火墙的，需要在安装组中对外开放3306端口<img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/8fdae4144228438bb81ef4302b47597b.png" alt="image.png"></p>
+</li>
+</ul>
+<p>MySQL连接效果</p>
+<table>
+<thead>
+<tr>
+<th>测试效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/5403fd99d68d431da88ba2b7b81c6eb3.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<p>导入之前准备好sql脚本……</p>
+<table>
+<thead>
+<tr>
+<th>库表信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/ea50c4f400014b09813e081de9e42f8c.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<h2 id="三、准备Nacos"><a href="#三、准备Nacos" class="headerlink" title="三、准备Nacos"></a>三、准备Nacos</h2><p>Nacos默认的启动方式是集群模式，集群模式占用的内存比较大，默认2G左右，直接采用单机模式的即可standalone模式~~~</p>
+<p>暂时Nacos持久化采用内嵌的数据库derby就足够了。</p>
+<p>准备docker-compose.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.1&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">nacos:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nacos/nacos-server:v2.1.1</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">nacos</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">8848</span><span class="string">:8848</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">MODE=standalone</span></span><br></pre></td></tr></table></figure>
+
+<p>直接启动容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>查看效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/ad80f80718d343a69f01d695e5cad6e1.png" alt="image.png"></td>
+</tr>
+<tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/2346c4dfa581488785dce4e74583787f.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<h2 id="四、准备Redis"><a href="#四、准备Redis" class="headerlink" title="四、准备Redis"></a>四、准备Redis</h2><p>Redis一样单机版的就ok，Redis的6379端口，经常会被作为挖矿的入口，Redis一定要设置连接密码，并且不要太简单。</p>
+<p>为了设置密码，需要先准备一个Redis的配置文件，设置好连接密码信息，redis.conf文件编写</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requirepass ZhengJinWei123!</span><br></pre></td></tr></table></figure>
+
+<p>再准备docker-compose.yml文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">version: &#x27;3.1&#x27;</span><br><span class="line">services:</span><br><span class="line">  redis:</span><br><span class="line">    image: redis:5.0.9</span><br><span class="line">    container_name: redis</span><br><span class="line">    ports:</span><br><span class="line">      - 6379:6379</span><br><span class="line">    volumes:</span><br><span class="line">      - ./data/:/data/</span><br><span class="line">    command: [&quot;redis-server&quot;,&quot;redis.conf&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>直接启动容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>查看效果</p>
+<table>
+<thead>
+<tr>
+<th>查看效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/0a41e8f0654e464587d7f73f7721f5c0.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<h2 id="五、准备RabbitMQ"><a href="#五、准备RabbitMQ" class="headerlink" title="五、准备RabbitMQ"></a>五、准备RabbitMQ</h2><p>RabbitMQ安装成本很低，只需要设置好图形化界面的密码即可</p>
+<p>准备docker-compose.yml文件即可</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.1&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">rabbitmq:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">rabbitmq:3.8.3-management</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">rabbitmq</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">5672</span><span class="string">:5672</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">15672</span><span class="string">:15672</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">RABBITMQ_DEFAULT_USER=root</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">RABBITMQ_DEFAULT_PASS=ZhengJinWei123!</span></span><br></pre></td></tr></table></figure>
+
+<p>启动容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>查看效果</p>
+<table>
+<thead>
+<tr>
+<th>图形化界面</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/f8fe5490dd1f482f991c485e0705a02e.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<h2 id="六、准备Elasticsearch-Kibana"><a href="#六、准备Elasticsearch-Kibana" class="headerlink" title="六、准备Elasticsearch&amp;Kibana"></a>六、准备Elasticsearch&amp;Kibana</h2><p>Elasticsearch和Kibana要一起安装，Kibana要依赖Elasticsearch</p>
+<p>Elasticsearch默认也是集群的方式去搭建，而且占用的内存默认情况下特别大，设置一下Elasticsearch的占用内存大小</p>
+<p>准备docker-compose.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.1&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">elasticsearch:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">elasticsearch:7.6.2</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">elasticsearch</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">9200</span><span class="string">:9200</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;cluster.name=elasticsearch&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;discovery.type=single-node&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;ES_JAVA_OPTS=-Xms256m -Xmx256m&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;ELASTIC_PASSWORD=ZhengJinWei123!&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;xpack.security.enabled=true&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./plugins/:/usr/share/elasticsearch/plugins/</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data/:/usr/share/elasticsearch/data/</span></span><br><span class="line">  <span class="attr">kibana:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">kibana:7.6.2</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">kibana</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">5601</span><span class="string">:5601</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">elasticsearch</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;elasticsearch.hosts=http://elasticsearch:9200&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;ELASTICSEARCH_USERNAME=elastic&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;ELASTICSEARCH_PASSWORD=ZhengJinWei123!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>启动容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>查看效果</p>
+<table>
+<thead>
+<tr>
+<th>查看效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/925980873da84365a168aa04ebfbe258.png" alt="image.png"></td>
+</tr>
+<tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/de90acfa84ab4d7d849ae33c59cb8f18.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<h2 id="七、准备Jenkins"><a href="#七、准备Jenkins" class="headerlink" title="七、准备Jenkins"></a>七、准备Jenkins</h2><p>Jenkins用于发布整个项目做测试时需要使用。</p>
+<p>Jenkins的版本一定的要选择。Jenkins最新的长期支持版本，不支持JDK1.8，采用的是JDK11。</p>
+<p>经过选择，采用 <strong>jenkins&#x2F;jenkins:2.350-jdk8</strong>  这个版本</p>
+<p>准备docker-compose.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.1&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">jenkins:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">jenkins/jenkins:2.350-jdk8</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">jenkins</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">8080</span><span class="string">:8080</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">50000</span><span class="string">:50000</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./data/:/var/jenkins_home/</span></span><br></pre></td></tr></table></figure>
+
+<p>启动容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>第一次启动后，会发现抛出一个permission的错误，在写入log日志到&#x2F;var&#x2F;jenkins_home&#x2F;时，没有权限，因为宿主机的数据源不允许其他用户写入。给数据卷data复制w权限：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+w data</span><br></pre></td></tr></table></figure>
+
+<p>再次启动容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>需要稍微等一会，看到Jenkins的首页</p>
+<table>
+<thead>
+<tr>
+<th>查看效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/e6338247330b49318a1a578d449c0909.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<p>首页的密码需要从容器的日志中查看。</p>
+<table>
+<thead>
+<tr>
+<th>查看首页密码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/9fbf09c57b5c486187dd82d57e3bc254.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<p>输入密码后，继续，然后需要指定选择安装插件的方式</p>
+<table>
+<thead>
+<tr>
+<th>选择插件来安装</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/e5a090699aea4baf9be41ceaad4d9046.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<p>额外选择一个Git Parameter的插件</p>
+<table>
+<thead>
+<tr>
+<th>额外选择Git Parameter</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/28b941077fb44761ba2b50abfbe05ffc.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<p>安装插件（听天由命）</p>
+<table>
+<thead>
+<tr>
+<th>开始安装（我的安装ok）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/eeff44d243cb4ad2b6ca1af0163b0786.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<p>指定用户</p>
+<table>
+<thead>
+<tr>
+<th>指定后面登录的用户名和密码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/4b6acfffe1124c4fb5fe6195823a2406.png" alt="image.png"></td>
+</tr>
+</tbody></table>
+<p>最终查看到Jenkins的首页</p>
+<table>
+<thead>
+<tr>
+<th>查看Jenkins首页</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://fynotefile.oss-cn-zhangjiakou.aliyuncs.com/fynote/fyfile/2746/1666872524001/f5f1d4dfb5b34b33b41757db3e2516d4.png" alt="image.png"></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/09/08/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E6%94%AF%E6%92%91%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">底层支撑搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%87%86%E5%A4%87Docker-Docker-Compose"><span class="nav-number">1.1.</span> <span class="nav-text">一、准备Docker&amp;Docker-Compose</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Docker%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 Docker安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Docker-Compose%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 Docker-Compose安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%87%86%E5%A4%87MySQL"><span class="nav-number">1.2.</span> <span class="nav-text">二、准备MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%87%86%E5%A4%87Nacos"><span class="nav-number">1.3.</span> <span class="nav-text">三、准备Nacos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%87%86%E5%A4%87Redis"><span class="nav-number">1.4.</span> <span class="nav-text">四、准备Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%87%86%E5%A4%87RabbitMQ"><span class="nav-number">1.5.</span> <span class="nav-text">五、准备RabbitMQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%87%86%E5%A4%87Elasticsearch-Kibana"><span class="nav-number">1.6.</span> <span class="nav-text">六、准备Elasticsearch&amp;Kibana</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%87%86%E5%A4%87Jenkins"><span class="nav-number">1.7.</span> <span class="nav-text">七、准备Jenkins</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

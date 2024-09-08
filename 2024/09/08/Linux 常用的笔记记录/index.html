@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Linux 常用的笔记记录 关于 Linux 的平时操作常用的操作备忘录  跨服务器进行文件之间的传输命令介绍通过 rsync 命令完成异地服务器之间的文件传输，支持的优点：文件排除目录、传输速率限制、本地复制 1234- 命令格式rsync [参数] &lt;源地址（用户名@IP地址或主机名）&gt;:&lt;文件路径&gt; &lt;目的地址（用户名 @IP 地址或主机名）&gt;:&lt;文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 常用的笔记记录">
+<meta property="og:url" content="http://example.com/2024/09/08/Linux%20%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AC%94%E8%AE%B0%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Linux 常用的笔记记录 关于 Linux 的平时操作常用的操作备忘录  跨服务器进行文件之间的传输命令介绍通过 rsync 命令完成异地服务器之间的文件传输，支持的优点：文件排除目录、传输速率限制、本地复制 1234- 命令格式rsync [参数] &lt;源地址（用户名@IP地址或主机名）&gt;:&lt;文件路径&gt; &lt;目的地址（用户名 @IP 地址或主机名）&gt;:&lt;文">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/assets/image-20240907144117509.png">
+<meta property="og:image" content="http://example.com/images/assets/image-20240907150445958.png">
+<meta property="og:image" content="http://example.com/images/assets/image-20240907150948409.png">
+<meta property="og:image" content="http://example.com/images/assets/image-20240907151132991.png">
+<meta property="og:image" content="http://example.com/images/assets/bb725485c765408eb66d06b641d528ce.png">
+<meta property="article:published_time" content="2024-09-08T13:31:30.313Z">
+<meta property="article:modified_time" content="2024-09-08T13:36:16.237Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/assets/image-20240907144117509.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2024/09/08/Linux 常用的笔记记录/"/>
+
+
+
+
+
+  <title>Linux 常用的笔记记录 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/08/Linux%20%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AC%94%E8%AE%B0%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux 常用的笔记记录</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-09-08T21:31:30+08:00">
+                2024-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Linux-常用的笔记记录"><a href="#Linux-常用的笔记记录" class="headerlink" title="Linux 常用的笔记记录"></a>Linux 常用的笔记记录</h1><blockquote>
+<p>关于 Linux 的平时操作常用的操作备忘录</p>
+</blockquote>
+<h2 id="跨服务器进行文件之间的传输"><a href="#跨服务器进行文件之间的传输" class="headerlink" title="跨服务器进行文件之间的传输"></a>跨服务器进行文件之间的传输</h2><h3 id="命令介绍"><a href="#命令介绍" class="headerlink" title="命令介绍"></a>命令介绍</h3><p>通过 <code>rsync</code> 命令完成异地服务器之间的文件传输，支持的优点：文件排除目录、传输速率限制、本地复制</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- 命令格式</span><br><span class="line">rsync [参数] &lt;源地址（用户名@IP地址或主机名）&gt;:&lt;文件路径&gt; &lt;目的地址（用户名 @IP 地址或主机名）&gt;:&lt;文件路径&gt;</span><br><span class="line"></span><br><span class="line">基于 ssh 所以需要开放 ssh 端口以及通过用户密钥登录。</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- 命令操作</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将本地服务器器 /home/root/ 目录下的 obj.txt 文件,上载到 192.168.0.10 的 peppa 用户的 /home/root/work 目录下</span></span><br><span class="line">rsync /home/root/obj.txt peppa@192.168.0.10:/home/peppa/work </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将 47.120.25.129 服务器下 /home/peppa/ 目录下的 readmean.md 文档拷贝到 43.136.43.98 服务器 /home/peppa/ 目录下</span></span><br><span class="line">rsync peppa@47.120.25.129:/home/peppa/readmean.md root@43.136.43.98:/home/peppa/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">拷贝文件夹需要添加 -r 的参数,拷贝源为文件夹</span></span><br><span class="line">rsync -r peppa@47.120.25.129:/home/peppa/work root@43.136.43.98:/home/peppa/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">添加 -v 参数,可以显示拷贝时候的详细信息</span></span><br><span class="line">rsync -r -v peppa@47.120.25.129:/home/peppa/work root@43.136.43.98:/home/peppa/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">参数 --exclude 排除子目录;  排除的work目录下的 ./code/test 子目录, 而且 --exclude 参数后面一定是相对路径,绝对路径不会被匹配</span></span><br><span class="line">rsync -r -v --exclude ./code/test peppa@47.120.25.129:/home/peppa/work root@43.136.43.98:/home/peppa/</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/assets/image-20240907144117509.png" alt="image-20240907144117509"> </p>
+<h2 id="如何给服务器添加魔法"><a href="#如何给服务器添加魔法" class="headerlink" title="如何给服务器添加魔法"></a>如何给服务器添加魔法</h2><h3 id="准备文件"><a href="#准备文件" class="headerlink" title="准备文件"></a>准备文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- Clash-Linux   # clash 程序</span><br><span class="line">- Config.yaml   # 代理配置文件 - 通过代理的 URL 之间下载上传即可</span><br><span class="line">- Country.mmdb  # 首次允许会下载 Country.mmdb 该文件,该文件可能会因为网络问题下载失败,[该文件是 clash 的 GeoIP 的数据库文件存储了全球对应的 ip &amp; 地理位置]所以是同样的网上现在一个现成的即可</span><br></pre></td></tr></table></figure>
+
+<h3 id="可视化面板-可选"><a href="#可视化面板-可选" class="headerlink" title="可视化面板 [可选]"></a>可视化面板 [可选]</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone -b gh-pages https://github.com/Dreamacro/clash-dashboard ui</span><br></pre></td></tr></table></figure>
+
+<h3 id="Clash-Server-服务"><a href="#Clash-Server-服务" class="headerlink" title="Clash-Server 服务"></a>Clash-Server 服务</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">命令为  clash.service   添加执行权限并保存到 /etc/systemd/system 目录下</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Clash service</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">User=louis（你的用户名）</span><br><span class="line">ExecStart=/home/louis/Clash/clash（Clash 程序路径）</span><br><span class="line">Restart=on-failure</span><br><span class="line">RestartPreventExitStatus=23</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重载服务</span></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">开机启动</span></span><br><span class="line">sudo systemctl enable clash</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动服务</span></span><br><span class="line">sudo systemctl start clash</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看服务状态</span></span><br><span class="line">sudo systemctl status clash</span><br></pre></td></tr></table></figure>
+
+<h3 id="全局代理"><a href="#全局代理" class="headerlink" title="全局代理"></a>全局代理</h3><ul>
+<li>临时代理</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 代理地址</span><br><span class="line">export http_proxy=http://127.0.0.1:7890</span><br><span class="line">export https_proxy=http://127.0.0.1:7890</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>开始自启代理</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">写入环境变量 /etc/profile 文件</span></span><br><span class="line">- 代理地址</span><br><span class="line">export http_proxy=http://127.0.0.1:7890</span><br><span class="line">export https_proxy=http://127.0.0.1:7890</span><br><span class="line"></span><br><span class="line">-刷新配置</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">source</span> /etc/profile</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="验证代理"><a href="#验证代理" class="headerlink" title="验证代理"></a>验证代理</h3><figure class="highlight https"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping www.google.com</span><br></pre></td></tr></table></figure>
+
+<h3 id="直接结果"><a href="#直接结果" class="headerlink" title="直接结果"></a>直接结果</h3><ul>
+<li>第一次初始化会下载 <code>Country.mmdb</code> 文件，提醒错误 <code>error=can&#39;t initial MMDB: can&#39;t download MMDB: Get &quot;https://cdn.jsdelivr.net/gh/Dreamacro/maxmind-geoip@release/Country.mmdb&quot;: read tcp 192.168.10.10:38062-&gt;59.24.3.174:443: read: connection reset by peer </code> 直接将上传的文复制到指定目录即可。</li>
+</ul>
+<p><img src="/../images/assets/image-20240907150445958.png" alt="image-20240907150445958"> </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp ./config.yaml /root/.config/clash/</span><br><span class="line">cp ./Country.mmdb /root/.config/clash/</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/assets/image-20240907150948409.png" alt="image-20240907150948409"> </p>
+<p><img src="/../images/assets/image-20240907151132991.png" alt="image-20240907151132991"> </p>
+<blockquote>
+<p>参考资料：</p>
+<p>[***在 Linux 服务器上安装 Clash，以及开机自动启动***](在 Linux 服务器上安装 Clash，以及开机自动启动)</p>
+</blockquote>
+<h2 id="如何给-Dokcer-开始内部的代理"><a href="#如何给-Dokcer-开始内部的代理" class="headerlink" title="如何给 Dokcer 开始内部的代理"></a>如何给 Dokcer 开始内部的代理</h2><h3 id="添加-Docker-守护进程的配置文件"><a href="#添加-Docker-守护进程的配置文件" class="headerlink" title="添加 Docker 守护进程的配置文件"></a>添加 Docker 守护进程的配置文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-  添加配置 systemctl 的 docker 配置文件路径</span><br><span class="line">sudo mkdir -p /etc/systemd/system/docker.service.d</span><br><span class="line">- 添加配置文件</span><br><span class="line">sudo touch /etc/systemd/system/docker.service.d/proxy.conf</span><br><span class="line">- 添加代理地址</span><br><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://proxy.example.com:7890/&quot;</span><br><span class="line">Environment=&quot;HTTPS_PROXY=http://proxy.example.com:7890/&quot;</span><br><span class="line">Environment=&quot;NO_PROXY=localhost,127.0.0.1,.example.com&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="重启刷新"><a href="#重启刷新" class="headerlink" title="重启刷新"></a>重启刷新</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">sudo</span> systemctl daemon-reload</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">sudo</span> systemctl restart docker</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>参考资料:</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Chary/p/18096678"><em><strong>如何优雅的给 Docker 配置网络代理</strong></em></a></p>
+</blockquote>
+<h3 id="Ubunut-安装-Docker"><a href="#Ubunut-安装-Docker" class="headerlink" title="Ubunut 安装 Docker"></a>Ubunut 安装 Docker</h3><h3 id="卸载老版本的-Docker"><a href="#卸载老版本的-Docker" class="headerlink" title="卸载老版本的 Docker"></a>卸载老版本的 Docker</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
+
+<h3 id="更新-Ubuntu-的本地软件包"><a href="#更新-Ubuntu-的本地软件包" class="headerlink" title="更新 Ubuntu 的本地软件包"></a>更新 Ubuntu 的本地软件包</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装-Docker-依赖"><a href="#安装-Docker-依赖" class="headerlink" title="安装 Docker 依赖"></a>安装 Docker 依赖</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ca-certificates curl gnupg lsb-release</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.i</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置-Ubuntu-的镜像源地址"><a href="#配置-Ubuntu-的镜像源地址" class="headerlink" title="配置 Ubuntu 的镜像源地址"></a>配置 Ubuntu 的镜像源地址</h2><h3 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装阿里云gpg证书</span></span><br><span class="line">curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add </span><br></pre></td></tr></table></figure>
+
+<h3 id="添加源"><a href="#添加源" class="headerlink" title="添加源"></a>添加源</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在指定目录下新建docker.list文件，添加阿里云镜像源</span></span><br><span class="line">cd /etc/apt/sources.list.d        </span><br><span class="line">sudo touch docker.list            </span><br><span class="line">sudo chmod 666 docker.list</span><br><span class="line">sudo echo &quot;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot; &gt; docker.list</span><br></pre></td></tr></table></figure>
+
+<h3 id="更新地址源"><a href="#更新地址源" class="headerlink" title="更新地址源"></a>更新地址源</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新软件源</span></span><br><span class="line">sudo apt-get update &amp;&amp; sudo apt-get upgrade</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装-Docker-测试"><a href="#安装-Docker-测试" class="headerlink" title="安装 Docker 测试"></a>安装 Docker 测试</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装最新Docker</span></span><br><span class="line">sudo apt install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="docker-compose-的安装与基本使用"><a href="#docker-compose-的安装与基本使用" class="headerlink" title="docker-compose 的安装与基本使用"></a>docker-compose 的安装与基本使用</h2><p><a target="_blank" rel="noopener" href="https://github.com/docker/compose/releases/tag/v2.10.0"><em><strong>GitHub的镜像地址</strong></em></a></p>
+<p><img src="/../images/assets/bb725485c765408eb66d06b641d528ce.png" alt="image-20240907150948409"> </p>
+<h3 id="赋予权限"><a href="#赋予权限" class="headerlink" title="赋予权限"></a>赋予权限</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x docker-compose-linux-x86_64</span><br></pre></td></tr></table></figure>
+
+<h3 id="迁移到-Path-目录"><a href="#迁移到-Path-目录" class="headerlink" title="迁移到 Path 目录"></a>迁移到 Path 目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv docker-compose-linux-x86_64 /usr/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<h3 id="执行测试"><a href="#执行测试" class="headerlink" title="执行测试"></a>执行测试</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose version</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/09/08/Docker%20%E5%AE%89%E8%A3%85/" rel="next" title="Docker 底层搭建支持">
+                <i class="fa fa-chevron-left"></i> Docker 底层搭建支持
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AC%94%E8%AE%B0%E8%AE%B0%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">Linux 常用的笔记记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BC%A0%E8%BE%93"><span class="nav-number">1.1.</span> <span class="nav-text">跨服务器进行文件之间的传输</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">命令介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%BB%99%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B7%BB%E5%8A%A0%E9%AD%94%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">如何给服务器添加魔法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">准备文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96%E9%9D%A2%E6%9D%BF-%E5%8F%AF%E9%80%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">可视化面板 [可选]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clash-Server-%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.2.3.</span> <span class="nav-text">Clash-Server 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E4%BB%A3%E7%90%86"><span class="nav-number">1.2.4.</span> <span class="nav-text">全局代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E4%BB%A3%E7%90%86"><span class="nav-number">1.2.5.</span> <span class="nav-text">验证代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E7%BB%93%E6%9E%9C"><span class="nav-number">1.2.6.</span> <span class="nav-text">直接结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%BB%99-Dokcer-%E5%BC%80%E5%A7%8B%E5%86%85%E9%83%A8%E7%9A%84%E4%BB%A3%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">如何给 Dokcer 开始内部的代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0-Docker-%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.1.</span> <span class="nav-text">添加 Docker 守护进程的配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%90%AF%E5%88%B7%E6%96%B0"><span class="nav-number">1.3.2.</span> <span class="nav-text">重启刷新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ubunut-%E5%AE%89%E8%A3%85-Docker"><span class="nav-number">1.3.3.</span> <span class="nav-text">Ubunut 安装 Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD%E8%80%81%E7%89%88%E6%9C%AC%E7%9A%84-Docker"><span class="nav-number">1.3.4.</span> <span class="nav-text">卸载老版本的 Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-Ubuntu-%E7%9A%84%E6%9C%AC%E5%9C%B0%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-number">1.3.5.</span> <span class="nav-text">更新 Ubuntu 的本地软件包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Docker-%E4%BE%9D%E8%B5%96"><span class="nav-number">1.3.6.</span> <span class="nav-text">安装 Docker 依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Docker"><span class="nav-number">1.3.7.</span> <span class="nav-text">安装 Docker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Ubuntu-%E7%9A%84%E9%95%9C%E5%83%8F%E6%BA%90%E5%9C%B0%E5%9D%80"><span class="nav-number">1.4.</span> <span class="nav-text">配置 Ubuntu 的镜像源地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%AF%81%E4%B9%A6"><span class="nav-number">1.4.1.</span> <span class="nav-text">安装证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%BA%90"><span class="nav-number">1.4.2.</span> <span class="nav-text">添加源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E5%9C%B0%E5%9D%80%E6%BA%90"><span class="nav-number">1.4.3.</span> <span class="nav-text">更新地址源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Docker-%E6%B5%8B%E8%AF%95"><span class="nav-number">1.4.4.</span> <span class="nav-text">安装 Docker 测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-compose-%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">docker-compose 的安装与基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%8B%E4%BA%88%E6%9D%83%E9%99%90"><span class="nav-number">1.5.1.</span> <span class="nav-text">赋予权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%81%E7%A7%BB%E5%88%B0-Path-%E7%9B%AE%E5%BD%95"><span class="nav-number">1.5.2.</span> <span class="nav-text">迁移到 Path 目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="nav-number">1.5.3.</span> <span class="nav-text">执行测试</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

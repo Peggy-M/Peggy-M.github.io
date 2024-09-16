@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="en">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux,部署操作," />
 
 
 
@@ -82,18 +82,20 @@
 <meta name="description" content="Linux 常用的笔记记录 关于 Linux 的平时操作常用的操作备忘录  跨服务器进行文件之间的传输命令介绍通过 rsync 命令完成异地服务器之间的文件传输，支持的优点：文件排除目录、传输速率限制、本地复制 1234- 命令格式rsync [参数] &lt;源地址（用户名@IP地址或主机名）&gt;:&lt;文件路径&gt; &lt;目的地址（用户名 @IP 地址或主机名）&gt;:&lt;文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 常用的笔记记录">
-<meta property="og:url" content="http://example.com/2024/09/08/Linux%20%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AC%94%E8%AE%B0%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:url" content="http://example.com/2024/09/18/Linux%20%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AC%94%E8%AE%B0%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Linux 常用的笔记记录 关于 Linux 的平时操作常用的操作备忘录  跨服务器进行文件之间的传输命令介绍通过 rsync 命令完成异地服务器之间的文件传输，支持的优点：文件排除目录、传输速率限制、本地复制 1234- 命令格式rsync [参数] &lt;源地址（用户名@IP地址或主机名）&gt;:&lt;文件路径&gt; &lt;目的地址（用户名 @IP 地址或主机名）&gt;:&lt;文">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale">
 <meta property="og:image" content="http://example.com/images/assets/image-20240907144117509.png">
 <meta property="og:image" content="http://example.com/images/assets/image-20240907150445958.png">
 <meta property="og:image" content="http://example.com/images/assets/image-20240907150948409.png">
 <meta property="og:image" content="http://example.com/images/assets/image-20240907151132991.png">
 <meta property="og:image" content="http://example.com/images/assets/bb725485c765408eb66d06b641d528ce.png">
-<meta property="article:published_time" content="2024-09-08T13:31:30.313Z">
-<meta property="article:modified_time" content="2024-09-08T13:36:16.237Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:published_time" content="2024-09-18T12:46:25.000Z">
+<meta property="article:modified_time" content="2024-09-16T08:55:27.711Z">
+<meta property="article:author" content="peppa">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="部署操作">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/assets/image-20240907144117509.png">
 
@@ -103,7 +105,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -111,7 +113,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: 'peppa'
     },
     algolia: {
       applicationID: '',
@@ -125,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2024/09/08/Linux 常用的笔记记录/"/>
+  <link rel="canonical" href="http://example.com/2024/09/18/Linux 常用的笔记记录/"/>
 
 
 
@@ -143,7 +145,7 @@
 
 <meta name="generator" content="Hexo 7.3.0"></head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -187,21 +189,61 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/%20" rel="section">
+          <a href="/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives/%20" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
           </a>
         </li>
       
@@ -238,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/08/Linux%20%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AC%94%E8%AE%B0%E8%AE%B0%E5%BD%95/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/18/Linux%20%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AC%94%E8%AE%B0%E8%AE%B0%E5%BD%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -265,10 +307,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-09-08T21:31:30+08:00">
-                2024-09-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-09-18T20:46:25+08:00">
+                2024-09-18
               </time>
             
 
@@ -277,6 +319,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -399,6 +463,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/%E9%83%A8%E7%BD%B2%E6%93%8D%E4%BD%9C/" rel="tag"># 部署操作</a>
+          
+        </div>
+      
 
       
       
@@ -408,8 +480,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2024/09/08/Docker%20%E5%AE%89%E8%A3%85/" rel="next" title="Docker 底层搭建支持">
-                <i class="fa fa-chevron-left"></i> Docker 底层搭建支持
+              <a href="/2024/09/08/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
           </div>
@@ -470,10 +542,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            站点概览
           </li>
         </ul>
       
@@ -491,16 +563,34 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/%20%7C%7C%20archive">
+                <a href="/">
               
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -550,17 +640,17 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright">&copy; 2024/9/10 &mdash; <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">peppa</span>
 
   
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -568,7 +658,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -617,6 +707,9 @@
 
 
 
+  
+  
+
 
 
 
@@ -655,6 +748,16 @@
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
   
 
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
 
   
 
@@ -667,6 +770,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
